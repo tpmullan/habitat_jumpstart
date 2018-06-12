@@ -15,3 +15,7 @@ do
 done
 
 echo "Done preparing TOMCAT_HOME"
+
+{{#if bind.database ~}}
+{{pkgPathFor "core/mongo-tools"}}/bin/mongoimport --drop -d demo -c nationalparks --type json --jsonArray --file {{pkg.path}}/national-parks.json --host={{bind.database.first.sys.ip}} --port={{bind.database.first.cfg.port}}
+{{/if ~}}

@@ -4,16 +4,16 @@ pkg_origin=
 pkg_version=1.0.0
 pkg_maintainer="Bill Meyer <b@chef.io>"
 pkg_license=('Apache-2.0')
-pkg_deps=(core/tomcat8 core/jre8)
+pkg_deps=(core/tomcat8 core/jre8 core/mongo-tools)
 pkg_build_deps=(core/jdk8/8u131 core/maven)
 pkg_svc_user="root"
-#pkg_binds=(
-#  [database]="port"
-#)
-#pkg_exports=(
-#  [port]=server.port
-#)
-#pkg_exposes=(port)
+pkg_binds=(
+  [database]="port"
+)
+pkg_exports=(
+  [port]=server.port
+)
+pkg_exposes=(port)
 
 do_prepare()
 {
@@ -30,4 +30,5 @@ do_build()
 do_install()
 {
     cp ${HAB_CACHE_SRC_PATH}/${pkg_dirname}/target/${pkg_name}.war ${PREFIX}/
+    cp -v ${HAB_CACHE_SRC_PATH}/${pkg_dirname}/data/national-parks.json ${PREFIX}/
 }
